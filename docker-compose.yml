@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  example:
+    build: ./cookie-tossing.lab
+    ports:
+      - "8083:5000"
+    networks:
+      - cookie-net
+    extra_hosts:
+      - "cookie-tossing.lab:127.0.0.1"
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+
+  blog:
+    build: ./blog.cookie-tossing.lab
+    ports:
+      - "8084:5000"
+    networks:
+      - cookie-net
+    extra_hosts:
+      - "blog.cookie-tossing.lab:127.0.0.1"
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+
+networks:
+  cookie-net: 
