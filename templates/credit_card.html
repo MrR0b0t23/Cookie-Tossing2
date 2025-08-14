@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Card Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .welcome {
+            font-size: 1.2em;
+        }
+        .logout-btn {
+            padding: 8px 16px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+        .nav-links {
+            margin-top: 20px;
+        }
+        .nav-links a {
+            color: #1877f2;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #1877f2;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #166fe5;
+        }
+        .current-data {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .current-data h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="welcome">Credit Card Information</div>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+        
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Back to Home</a>
+        </div>
+
+        {% if credit_card %}
+        <div class="current-data">
+            <h3>Current Credit Card Information</h3>
+            <p><strong>Card Number:</strong> {{ credit_card.number }}</p>
+            <p><strong>Name on Card:</strong> {{ credit_card.name }}</p>
+            <p><strong>Expiry Date:</strong> {{ credit_card.expiry }}</p>
+            <p><strong>CVV:</strong> {{ credit_card.cvv }}</p>
+        </div>
+        {% endif %}
+
+        <h2>Update Credit Card Information</h2>
+        <form action="{{ url_for('update_card') }}" method="POST">
+            <div class="form-group">
+                <label for="card_number">Card Number:</label>
+                <input type="text" id="card_number" name="card_number" value="{{ credit_card.number if credit_card else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="card_name">Name on Card:</label>
+                <input type="text" id="card_name" name="card_name" value="{{ credit_card.name if credit_card else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="card_expiry">Expiry Date:</label>
+                <input type="text" id="card_expiry" name="card_expiry" value="{{ credit_card.expiry if credit_card else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="card_cvv">CVV:</label>
+                <input type="text" id="card_cvv" name="card_cvv" value="{{ credit_card.cvv if credit_card else '' }}" required>
+            </div>
+            <button type="submit">Update Card</button>
+        </form>
+    </div>
+</body>
+</html> 
